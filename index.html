@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+
+    <style>
+        header {
+            background-color: darkblue;
+            font-size: 20px;
+            text-align: center;
+            color: white;
+            padding: 40px;
+        }
+
+        .row1,
+        .row6 {
+            background-color: lightgray;
+            border-style: solid;
+            border-width: thin;
+        }
+    </style>
+</head>
+
+<body>
+    <header><i class="far fa-newspaper"></i><strong>
+            New York Times Search
+    </header></strong>
+    <form class="container" style="border-style: solid; border-width: thin;">
+        <div class="row1 row"><i class="far fa-newspaper "></i>
+            <h6>Search Parameters</h6>
+        </div>
+        <div class="row2 row">
+            <div class="form-group">
+                <label>Search Term </label>
+                <input class="form-control" style="width: 500px;"><button id=" search"><i
+                        class="fas fa-search"></i></button>
+            </div>
+        </div>
+        <div class="row3 row">
+            <div class="form-group">
+                <label>Example select</label>
+                <select class="form-control" style="width: 500px;">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select><button id="number"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+        <div class="row4 row">
+            <div class="form-group">
+                <label>Start Year </label>
+                <input class="form-control" style="width: 500px;"><button id="startYear"><i
+                        class="fas fa-search"></i></button>
+
+            </div>
+        </div>
+        <div class="row5 row">
+            <div class="form-group">
+                <label>End Year </label>
+                <input class="form-control" style="width: 500px;"><button id="endYear"><i
+                        class="fas fa-search"></i></button>
+            </div>
+        </div>
+
+
+        <div class="row6 row"><i class="far fa-newspaper "></i>
+            <h6>Top Articles</h6>
+        </div>
+        <div class="articles">
+            <br>
+        </div>
+
+
+    </form>
+
+
+
+    <!-- Optional JavaScript -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script type="text/javascript">
+
+        $("button").on("click", function () {
+            event.preventDefault();
+
+            var query = $(".form-control").val();
+            // console.log($(".form-control").val())
+            var queryURL = "http://api.nytimes.com/svc/search/v2/articlesearch.json/?q=" + query + "&api-key=6pNcXVLUSN23gwcpKttG7tE8sbayV4E0";
+
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+
+            }).then(function (response) {
+                // console.log(response);
+                // console.log(response.response.docs[0].abstract);
+                // articleDate()
+                var artDiv = $("<div>");
+                var artP = $("<p>");
+                artP.text(response.response.docs[0].abstract);
+                $(".articles").append(artDiv);
+                console.log(artP)
+                artP.append(artDiv);
+            })
+        });
