@@ -41,8 +41,7 @@
         <div class="row2 row">
             <div class="form-group">
                 <label>Search Term </label>
-                <input class="form-control" style="width: 500px;"><button id=" search"><i
-                        class="fas fa-search"></i></button>
+                <input class="form-control" style="width: 500px;">
             </div>
         </div>
         <div class="row3 row">
@@ -54,21 +53,20 @@
                     <option>3</option>
                     <option>4</option>
                     <option>5</option>
-                </select><button id="number"><i class="fas fa-search"></i></button>
+                </select>
             </div>
         </div>
         <div class="row4 row">
             <div class="form-group">
                 <label>Start Year </label>
-                <input class="form-control" style="width: 500px;"><button id="startYear"><i
-                        class="fas fa-search"></i></button>
+                <input class="form-control" id="startInput" style="width: 500px;">
 
             </div>
         </div>
         <div class="row5 row">
             <div class="form-group">
                 <label>End Year </label>
-                <input class="form-control" style="width: 500px;"><button id="endYear"><i
+                <input class="form-control" id="endInput" style="width: 500px;"><button id="search"><i
                         class="fas fa-search"></i></button>
             </div>
         </div>
@@ -90,7 +88,31 @@
     <script src="https://code.jquery.com/jquery.js"></script>
     <script type="text/javascript">
 
-        $("button").on("click", function () {
+        $("#startYear").on("click", function (e) {
+            e.preventDefault();
+
+            // console.log("clickclick", $("#startInput").val());
+
+        })
+
+
+
+        $("#endYear").on("click", function (e) {
+            e.preventDefault();
+
+            // console.log("clickclick", $("#endInput").val());
+
+        })
+        // http://api.nytimes.com/svc/search/v2/articlesearch.json/?q=car&api-key=6pNcXVLUSN23gwcpKttG7tE8sbayV4E0&api-key=6pNcXVLUSN23gwcpKttG7tE8sbayV4E0&begin_date=20120101&end_date=20170101
+
+
+
+
+
+
+
+
+        $("#search").on("click", function (event) {
             event.preventDefault();
 
             var query = $(".form-control").val();
@@ -105,11 +127,46 @@
                 // console.log(response);
                 // console.log(response.response.docs[0].abstract);
                 // articleDate()
-                var artDiv = $("<div>");
-                var artP = $("<p>");
-                artP.text(response.response.docs[0].abstract);
-                $(".articles").append(artDiv);
-                console.log(artP)
-                artP.append(artDiv);
+                $(".articles").empty();
+                for (var i = 0; i < response.response.docs.length; i++) {
+                    var artDiv = $("<div>");
+                    var artP = $("<p>");
+                    artP.text(response.response.docs[i].abstract);
+                    $(".articles").append(artDiv);
+                    // console.log(artP)
+                    artDiv.append(artP);
+                }
+
             })
         });
+        // function articleDate() {
+        //     var artDiv = $("<div>");
+        //     var artP = $("<p>");
+        //     artP.text(response.response.docs[0].headline.main)
+        //     artP.append(artDiv);
+        //     $("form").append(artDiv);
+        // }
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
